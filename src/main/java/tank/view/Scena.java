@@ -1,6 +1,10 @@
 package tank.view;
 
 
+import tank.event.TankStoppedEvent;
+import tank.event.generator.TankEventGenerator;
+import tank.event.generator.TankEventGenerator.*;
+import tank.listener.TankMovingListener;
 import tank.model.Tank;
 
 import javax.swing.*;
@@ -12,9 +16,28 @@ public class Scena extends JPanel  {
 
     private JMenuBar menuBar;
     private JFrame frame;
+    TankEventGenerator tankEventGenerator = new TankEventGenerator();
+
+// Регистрация слушателя
+
 
     public Scena (JFrame frame) {
         this.frame= frame;
+        tankEventGenerator.addTankMovingListener(new TankMovingListener() {
+            @Override
+            public void tankStopped(TankStoppedEvent event) {
+                Dialog dialog = new JDialog(frame, "Button3", true);
+                dialog.setLayout(new FlowLayout());
+                JButton button1 = new JButton("Close");
+                button1.addActionListener(e -> {
+                    dialog.dispose();
+                });
+                dialog.add(button1);
+                dialog.setSize(300, 150);
+                dialog.setLocationRelativeTo(frame);
+                dialog.setVisible(true); // Показываем диалоговое окно
+            }
+        });
         createMenuBar();
     }
 
@@ -65,7 +88,8 @@ public class Scena extends JPanel  {
         // Добавляем слушателей на кнопки
         button1.addActionListener(e -> {
             // Сюда вставляем код обработки событий для кнопки 1
-            dialog.dispose(); // Закрыть диалоговое окно после клика
+
+            dialog.dispose();
         });
         button2.addActionListener(e -> {
             // Сюда вставляем код обработки событий для кнопки 2
@@ -73,7 +97,10 @@ public class Scena extends JPanel  {
         });
         button3.addActionListener(e -> {
             // Сюда вставляем код обработки событий для кнопки 3
-            dialog.dispose();
+            TankStoppedEvent tankStoppedEvent = new TankStoppedEvent(this);
+            // Отправка события зарегистрированным слушателям
+            tankEventGenerator.fireTankStoppedEvent(tankStoppedEvent);
+//            dialog.dispose();
         });
 
         // Добавляем кнопки в диалоговое окно
