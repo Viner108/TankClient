@@ -2,20 +2,22 @@ package tank.server;
 
 import tank.event.KeyEventDto;
 import tank.model.Tank;
-import tank.view.Scene;
+import tank.view.Frame;
+
+import javax.swing.*;
 
 public class ServerThread extends Thread{
     private boolean alive = true;
     private Tank tank;
-    private Scene scene;
-    public void insertTank (Scene scene,Tank tank) {
-        this.scene=scene;
+    private JFrame frame;
+    public void insertTank (JFrame frame, Tank tank) {
+        this.frame = frame;
         this.tank=tank;
     }
     @Override
     public void run () {
         while (alive) {
-            tank.moveX(scene);
+            tank.moveX(frame);
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {

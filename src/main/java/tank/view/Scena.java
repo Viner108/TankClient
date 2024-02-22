@@ -9,12 +9,19 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class DrawingTank extends JPanel implements KeyListener {
+public class Scena extends JPanel implements KeyListener {
     Tank tank;
-    ServerThread tankThread;
+    public ServerThread tankThread;
 
-    public DrawingTank(Tank tank) {
+    public Scena(Tank tank) {
+        super();
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        grabFocus();
         this.tank = tank;
+        addKeyListener(this);
+        this.setFocusable(true);
+        grabFocus();
         setBackground(new Color(34, 139, 34));
     }
     @Override

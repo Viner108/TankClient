@@ -1,9 +1,10 @@
 package tank.model;
 
 import tank.event.KeyEventDto;
-import tank.view.Scene;
+import tank.view.Frame;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -47,22 +48,25 @@ public class Tank {
         g.drawImage(imageTank, (int) X, (int) Y, (int) TANK_HEIGHT, (int) TANK_WIDTH, null);
 
     }
-    public void moveX(Scene scene){
-        if (scene.getWidth()<=X){
+    public void moveX(JFrame frame){
+        if (frame.getWidth() <= X){
             X=1;
         }
+        if (0 >= X){
+            X=frame.getWidth();
+        }
 
-        X=X + 10;
+        X=X +deltaX;
     }
     public void keyEventPressed(KeyEventDto e) {
 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W: {
-               X=X+1;
+                deltaX=+speed;
                 break;
             }
             case KeyEvent.VK_S: {
-                X=X-1;
+                deltaX=-speed;
                 break;
             }
         }
@@ -72,11 +76,11 @@ public class Tank {
 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W: {
-                deltaX =  speed;
+                deltaX = 0;
                 break;
             }
             case KeyEvent.VK_S: {
-                deltaX =  speed;
+                deltaX = 0;
                 break;
             }
 
