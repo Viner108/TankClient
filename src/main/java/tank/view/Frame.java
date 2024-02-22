@@ -6,8 +6,6 @@ import java.awt.*;
 
 public class Frame extends JFrame  {
     public Frame() {
-        super();
-        frameInit();
         setTitle("Танки");
         getContentPane().setBackground(new Color(34, 139, 34));
         setSize(1000, 1000);

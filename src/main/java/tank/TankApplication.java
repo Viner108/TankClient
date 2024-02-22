@@ -28,7 +28,7 @@ public class TankApplication {
 //        frame0.setVisible(true);
 
         JFrame frame = new JFrame(gd0.getDefaultConfiguration());
-        frame.setTitle("TANKS MODEL0");
+        frame.setTitle("Танки");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setResizable(true);
