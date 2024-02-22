@@ -1,10 +1,8 @@
 package tank.server;
 
+import tank.event.KeyEventDto;
 import tank.model.Tank;
 import tank.view.Scene;
-
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ServerThread extends Thread{
     private boolean alive = true;
@@ -24,5 +22,12 @@ public class ServerThread extends Thread{
                 e.printStackTrace();
             }
         }
+    }
+    public void keyPressed (KeyEventDto e) {
+        tank.keyEventPressed(e);
+    }
+
+    public void keyReleased (KeyEventDto e) {
+        tank.keyEventReleased(e);
     }
 }
