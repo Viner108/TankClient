@@ -1,5 +1,7 @@
 package tank.model;
 
+import tank.view.Scene;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +21,9 @@ public class Tank {
 //    public float alpha = 0.0F;
 //    public static int BG_BORDER = 3;
 
-    public Tank(String id) {
+    public Tank(String id, float X, float Y) {
+        this.X=X;
+        this.Y=Y;
         URL imgURLActive = getClass().getResource("/tankActive.png");
         this.id = id;
         try {
@@ -39,6 +43,12 @@ public class Tank {
 //        g2d.rotate(Math.toRadians(alpha), (int) (X + TANK_HEIGHT / 2), (int) (Y + TANK_WIDTH / 2));
         g.drawImage(imageTank, (int) X, (int) Y, (int) TANK_HEIGHT, (int) TANK_WIDTH, null);
 
+    }
+    public void moveX(Scene scene){
+        if (scene.getWidth()<=X){
+            X=0;
+        }
+        X=X+1;
     }
 
 
