@@ -26,14 +26,16 @@ public class Tank {
     float deltaY = 0.0F;
     float deltaAlpha = 0.0F;
     float speedAlpha = 6.4F;
+    private Tore tore;
 //    public float alpha = 0.0F;
 //    public static int BG_BORDER = 3;
 
     public Tank(String id, float X, float Y) {
         this.X = X;
         this.Y = Y;
-        URL imgURLActive = getClass().getResource("/tankActive.png");
-        URL imgURLStopped = getClass().getResource("/tankNonActive.png");
+        tore = new Tore(X, Y);
+        URL imgURLActive = getClass().getResource("/tankActive1.png");
+        URL imgURLStopped = getClass().getResource("/tankNotActive2.png");
         this.id = id;
         try {
             imageTankActive = ImageIO.read(imgURLActive);
@@ -50,14 +52,19 @@ public class Tank {
         g2d.rotate(Math.toRadians(alpha), (int) (X + TANK_HEIGHT / 2), (int) (Y + TANK_WIDTH / 2));
         g.fillRect((int) X - BG_BORDER, (int) Y - BG_BORDER, (int) TANK_HEIGHT + BG_BORDER, (int) TANK_WIDTH + BG_BORDER);
         g2d.rotate(Math.toRadians(-alpha), (int) (X + TANK_HEIGHT / 2), (int) (Y + TANK_WIDTH / 2));
-
         g2d.rotate(Math.toRadians(alpha), (int) (X + TANK_HEIGHT / 2), (int) (Y + TANK_WIDTH / 2));
         if(deltaX==0.0F && deltaY==0.0F) {
             g.drawImage(imageTankStopped, (int) X, (int) Y, (int) TANK_HEIGHT, (int) TANK_WIDTH, null);
         } else {
             g.drawImage(imageTankActive, (int) X, (int) Y, (int) TANK_HEIGHT, (int) TANK_WIDTH, null);
         }
+        drawTore(g, g2d);
 
+    }
+
+    private void drawTore(Graphics g, Graphics2D g2d) {
+        tore.draw(g, (X + TANK_HEIGHT / 2.4F), (Y + TANK_WIDTH / 3), alpha);
+        g2d.rotate(Math.toRadians(-alpha), (int) (X + TANK_HEIGHT / 2), (int) (Y + TANK_WIDTH / 2));
     }
 
     public void moveX(JFrame frame) {
@@ -76,6 +83,7 @@ public class Tank {
         X = X + deltaX;
         Y = Y + deltaY;
         alpha = alpha + deltaAlpha;
+        tore.move((X + TANK_HEIGHT / 2.4F), (Y + TANK_WIDTH / 3));
     }
 
     public void keyEventPressed(KeyEventDto e) {
@@ -101,6 +109,14 @@ public class Tank {
                 deltaY = -(float) Math.sin(Math.toRadians(alpha)) * speed;
                 break;
             }
+            case KeyEvent.VK_Q: {
+                tore.turnContrClockArrowDirection();
+                break;
+            }
+            case KeyEvent.VK_E: {
+                tore.turnByClockArrowDirection();
+                break;
+            }
         }
     }
 
@@ -123,6 +139,14 @@ public class Tank {
             case KeyEvent.VK_S: {
                 deltaX = 0;
                 deltaY = 0;
+                break;
+            }
+            case KeyEvent.VK_Q: {
+                tore.zeroSpeedAlpha();
+                break;
+            }
+            case KeyEvent.VK_E: {
+                tore.zeroSpeedAlpha();
                 break;
             }
 

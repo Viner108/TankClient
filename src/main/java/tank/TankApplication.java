@@ -20,7 +20,7 @@ public class TankApplication {
         Tank tank=new Tank("1",0,100);
         ServerThread tankThread = new ServerThread();
 
-//        Frame frame0 = new Frame();
+//        Frame frame0 = new Frame(gd0.getDefaultConfiguration());
 //        tankThread.insertTank(frame0,tank);
 //        Scena scena=new Scena(tank);
 //        scena.tankThread=tankThread;
