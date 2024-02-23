@@ -1,7 +1,6 @@
 package tank.model;
 
 import tank.event.KeyEventDto;
-import tank.view.Frame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,7 +13,8 @@ import java.net.URL;
 
 public class Tank {
     public String id;
-    private BufferedImage imageTank;
+    private BufferedImage imageTankActive;
+    private BufferedImage imageTankStopped;
     public static float TANK_HEIGHT = 109F;
     public static float TANK_WIDTH = 82F;
     public float Y;
@@ -33,9 +33,11 @@ public class Tank {
         this.X = X;
         this.Y = Y;
         URL imgURLActive = getClass().getResource("/tankActive.png");
+        URL imgURLStopped = getClass().getResource("/tankNonActive.png");
         this.id = id;
         try {
-            imageTank = ImageIO.read(imgURLActive);
+            imageTankActive = ImageIO.read(imgURLActive);
+            imageTankStopped = ImageIO.read(imgURLStopped);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,7 +52,11 @@ public class Tank {
         g2d.rotate(Math.toRadians(-alpha), (int) (X + TANK_HEIGHT / 2), (int) (Y + TANK_WIDTH / 2));
 
         g2d.rotate(Math.toRadians(alpha), (int) (X + TANK_HEIGHT / 2), (int) (Y + TANK_WIDTH / 2));
-        g.drawImage(imageTank, (int) X, (int) Y, (int) TANK_HEIGHT, (int) TANK_WIDTH, null);
+        if(deltaX==0.0F && deltaY==0.0F) {
+            g.drawImage(imageTankStopped, (int) X, (int) Y, (int) TANK_HEIGHT, (int) TANK_WIDTH, null);
+        } else {
+            g.drawImage(imageTankActive, (int) X, (int) Y, (int) TANK_HEIGHT, (int) TANK_WIDTH, null);
+        }
 
     }
 
