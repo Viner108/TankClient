@@ -1,8 +1,10 @@
 package tank.event;
 
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 
-public class KeyEventDto {
+public class KeyEventDto implements Serializable {
+    private static final long serialVersionUID = 8038539938717817116L;
     int keyCode;
     public static KeyEventDto fromKeyEvent(KeyEvent e){
         KeyEventDto dto = new KeyEventDto();

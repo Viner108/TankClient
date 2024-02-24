@@ -18,7 +18,7 @@ public class Tore {
     public float X;
     public   float alpha = 0.0F;
     public   float deltaAlpha = 0.0F;
-    public float speedAlpha = 9.2F;
+    public float speedAlpha = 1.5F;
     public static float TORRE_HEIGHT = Tank.TANK_HEIGHT/3;
     public static float TORRE_WIDTH = Tank.TANK_WIDTH/3;
     private BufferedImage imgActive;
@@ -35,7 +35,6 @@ public class Tore {
 
     }
     public void move (float baseX, float baseY, JFrame frame) {
-
         X = baseX;
         Y = baseY;
         alpha = alpha + deltaAlpha;

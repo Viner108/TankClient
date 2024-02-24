@@ -23,10 +23,10 @@ public class Tank {
     public float alpha = 0.0F;
     public static int BG_BORDER = 3;
     float deltaX = 0.0F;
-    float speed = 9.45F;
+    float speed = 5.0F;
     float deltaY = 0.0F;
     float deltaAlpha = 0.0F;
-    float speedAlpha = 6.4F;
+    float speedAlpha = 1.5F;
     private Tore tore;
     public Map<String, Charge> chargeMap;
 //    public float alpha = 0.0F;
