@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 
 
 public class Tank {
@@ -27,6 +28,7 @@ public class Tank {
     float deltaAlpha = 0.0F;
     float speedAlpha = 6.4F;
     private Tore tore;
+    public Map<String, Charge> chargeMap;
 //    public float alpha = 0.0F;
 //    public static int BG_BORDER = 3;
 
@@ -34,6 +36,7 @@ public class Tank {
         this.X = X;
         this.Y = Y;
         tore = new Tore(X, Y);
+        chargeMap = tore.chargeMap;
         URL imgURLActive = getClass().getResource("/tankActive1.png");
         URL imgURLStopped = getClass().getResource("/tankNotActive2.png");
         this.id = id;
@@ -59,7 +62,20 @@ public class Tank {
             g.drawImage(imageTankActive, (int) X, (int) Y, (int) TANK_HEIGHT, (int) TANK_WIDTH, null);
         }
         drawTore(g, g2d);
+        tore.drawCharges(g);
+    }
 
+    public void paintCharges() {
+        tore.chargeList.forEach(charge -> {
+            Charge charge1 = chargeMap.get(charge.id);
+            if (charge1 == null) {
+                chargeMap.put(charge.id, new Charge( charge.X, charge.Y, charge.alpha));
+            } else {
+                charge1.X = charge.X;
+                charge1.Y = charge.Y;
+                charge1.alive = charge.alive;
+            }
+        });
     }
 
     private void drawTore(Graphics g, Graphics2D g2d) {
@@ -67,7 +83,7 @@ public class Tank {
         g2d.rotate(Math.toRadians(-alpha), (int) (X + TANK_HEIGHT / 2), (int) (Y + TANK_WIDTH / 2));
     }
 
-    public void moveX(JFrame frame) {
+    public void move(JFrame frame) {
         if (frame.getWidth() <= X) {
             X = 1;
         }
@@ -83,7 +99,7 @@ public class Tank {
         X = X + deltaX;
         Y = Y + deltaY;
         alpha = alpha + deltaAlpha;
-        tore.move((X + TANK_HEIGHT / 2.4F), (Y + TANK_WIDTH / 3));
+        tore.move((X + TANK_HEIGHT / 2.4F), (Y + TANK_WIDTH / 3),frame);
     }
 
     public void keyEventPressed(KeyEventDto e) {
@@ -115,6 +131,10 @@ public class Tank {
             }
             case KeyEvent.VK_E: {
                 tore.turnByClockArrowDirection();
+                break;
+            }
+            case KeyEvent.VK_SPACE: {
+                tore.shoot(alpha);
                 break;
             }
         }

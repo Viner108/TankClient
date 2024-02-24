@@ -1,12 +1,18 @@
 package tank.model;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Tore {
+    public List<Charge> chargeList = new ArrayList<>();
+    public java.util.Map<String, Charge> chargeMap = new ConcurrentHashMap<>();
     public String id;
     public float Y;
     public float X;
@@ -28,17 +34,27 @@ public class Tore {
         }
 
     }
-    public void move (float baseX, float baseY) {
+    public void move (float baseX, float baseY, JFrame frame) {
 
         X = baseX;
         Y = baseY;
         alpha = alpha + deltaAlpha;
+        chargeList.removeIf(c->!c.alive);
+        chargeList.forEach( c -> c.move(frame));
+    }
+    public void shoot(float baseAlpha){
+        chargeList.add(new Charge(X, Y, alpha + baseAlpha));
     }
     public void draw (Graphics g, float baseX, float baseY, float baseAlpha) {
         Graphics2D g2d = (Graphics2D)g;
         g2d.rotate(Math.toRadians(alpha), (X + TORRE_HEIGHT/4), (Y + TORRE_WIDTH/2));
         g.drawImage(imgActive, (int) (X ), (int) (Y ), (int) TORRE_HEIGHT, (int) TORRE_WIDTH, null);
         g2d.rotate(Math.toRadians(-(alpha)), (X + TORRE_HEIGHT/4), (Y + TORRE_WIDTH/2));
+    }
+    public void drawCharges(Graphics g){
+        chargeMap.values().forEach(clientCharge -> {
+            clientCharge.draw(g);
+        });
     }
     public void turnContrClockArrowDirection (){
         deltaAlpha = - speedAlpha;

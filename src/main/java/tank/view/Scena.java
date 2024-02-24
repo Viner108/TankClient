@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Map;
 
 public class Scena extends JPanel implements KeyListener {
     Tank tank;
@@ -31,6 +32,9 @@ public class Scena extends JPanel implements KeyListener {
         repaint();
 //        g.setColor(Color.RED);
 //        g.fillOval(100,100,50,50);
+    }
+    public void updateTankMapWithDto(Tank tank){
+           tank.paintCharges();
     }
     @Override
     public void keyPressed (KeyEvent e) {

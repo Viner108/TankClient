@@ -32,8 +32,8 @@ public class TankApplication {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setResizable(true);
-        tankThread.insertTank(frame,tank);
         Scena scena=new Scena(tank);
+        tankThread.insertTank(frame,tank,scena);
         scena.tankThread=tankThread;
         frame.add(scena);
         frame.setVisible(true);
