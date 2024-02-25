@@ -2,6 +2,7 @@ package tank;
 
 
 import tank.connection.Connection;
+import tank.connection.FullConnection;
 import tank.model.Tank;
 import tank.server.ServerThread;
 import tank.view.Scena;
@@ -22,7 +23,7 @@ public class TankApplication {
         GraphicsDevice[] gs = ge.getScreenDevices();
         GraphicsDevice gd0 = gs[0];
 
-        Connection connection=new Connection();
+        FullConnection connection=new FullConnection();
         connection.start();
 //
 //        Tank tank=new Tank("1",0,100);
