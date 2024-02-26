@@ -1,18 +1,10 @@
 package tank;
 
 
-import tank.connection.Connection;
-import tank.model.Tank;
-import tank.server.ServerThread;
-import tank.view.Scena;
-import tank.view.Frame;
+import tank.connection.InputConnection;
+import tank.connection.OutputConnection;
 
-import javax.swing.*;
 import java.awt.*;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.ConnectException;
-import java.net.Socket;
 
 public class TankApplication {
 
@@ -22,8 +14,10 @@ public class TankApplication {
         GraphicsDevice[] gs = ge.getScreenDevices();
         GraphicsDevice gd0 = gs[0];
 
-        Connection connection=new Connection();
-        connection.start();
+        OutputConnection outputConnection =new OutputConnection();
+        InputConnection inputConnection = new InputConnection();
+        outputConnection.start();
+        inputConnection.start();
 //
 //        Tank tank=new Tank("1",0,100);
 //        ServerThread tankThread = new ServerThread();
