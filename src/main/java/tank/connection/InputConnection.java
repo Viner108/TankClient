@@ -44,8 +44,8 @@ public class InputConnection extends Thread {
 
     public boolean isConnected() {
         try {
-            objectInputStream.readObject();
-
+            KeyEventDto keyEventDto = (KeyEventDto) objectInputStream.readObject();
+            System.out.println(keyEventDto.toString());
         } catch (Exception e) {
             System.out.println("It isn't connection");
             return false;
