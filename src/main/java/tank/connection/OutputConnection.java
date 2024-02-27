@@ -7,7 +7,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class OutputConnection extends Thread {
+public class OutputConnection extends Thread implements Connection{
     private static String HOST = "192.168.1.105";
     private static int PORT = 8001;
     private Socket socketOut;
