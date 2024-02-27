@@ -12,12 +12,15 @@ public class OutputConnection extends Thread {
     private static int PORT = 8001;
     private Socket socketOut;
     private OutputStream outputStream;
+    private ObjectOutputStream objectOutputStream;
+    private int i;
 
 
     @Override
     public void run() {
         while (true) {
             if (socketOut == null || !isConnected()) {
+                i=0;
                 startConnection();
             }
         }
@@ -28,6 +31,7 @@ public class OutputConnection extends Thread {
             System.out.println("Start");
             socketOut = new Socket(HOST, PORT);
             outputStream = socketOut.getOutputStream();
+            objectOutputStream = new ObjectOutputStream(outputStream);
             System.out.println("OutputConnection establishment");
             isConnected();
         } catch (Exception e) {
@@ -42,7 +46,11 @@ public class OutputConnection extends Thread {
 
     public boolean isConnected() {
         try {
-            outputStream.write(1);
+            KeyEventDto keyEventDto = new KeyEventDto();
+            keyEventDto.setKeyCode(i);
+            objectOutputStream.writeObject(keyEventDto);
+            i++;
+            Thread.sleep(1000);
         } catch (Exception e) {
             System.out.println("It isn't connection");
             return false;
