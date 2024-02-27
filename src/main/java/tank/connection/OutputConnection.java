@@ -1,6 +1,9 @@
 package tank.connection;
 
+import tank.event.KeyEventDto;
+
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
@@ -9,6 +12,7 @@ public class OutputConnection extends Thread {
     private static int PORT = 8001;
     private Socket socketOut;
     private OutputStream outputStream;
+
 
     @Override
     public void run() {
@@ -39,7 +43,7 @@ public class OutputConnection extends Thread {
     public boolean isConnected() {
         try {
             outputStream.write(1);
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("It isn't connection");
             return false;
         }
