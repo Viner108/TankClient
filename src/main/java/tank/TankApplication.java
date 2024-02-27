@@ -14,11 +14,13 @@ public class TankApplication {
         GraphicsDevice[] gs = ge.getScreenDevices();
         GraphicsDevice gd0 = gs[0];
 
-        OutputConnection outputConnection =new OutputConnection();
+//        OutputConnection outputConnection = new OutputConnection();
+//        outputConnection.start();
+
+
         InputConnection inputConnection = new InputConnection();
-        outputConnection.start();
         inputConnection.start();
-//
+
 //        Tank tank=new Tank("1",0,100);
 //        ServerThread tankThread = new ServerThread();
 

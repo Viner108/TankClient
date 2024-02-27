@@ -16,7 +16,14 @@ public class KeyEventDto implements Serializable {
         return keyCode;
     }
 
-    private void setKeyCode (int keyCode) {
+    public void setKeyCode (int keyCode) {
         this.keyCode = keyCode;
+    }
+
+    @Override
+    public String toString() {
+        return "KeyEventDto{" +
+               "keyCode=" + keyCode +
+               '}';
     }
 }

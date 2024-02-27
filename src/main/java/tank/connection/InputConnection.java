@@ -1,23 +1,25 @@
 package tank.connection;
 
+import tank.event.KeyEventDto;
+
 import java.io.IOException;
-import java.net.ServerSocket;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class InputConnection extends Thread {
+    private static String HOST = "192.168.1.105";
     private static int PORT = 8002;
-    private ServerSocket serverSocket;
-    private Socket input;
-
+    private Socket socketOut;
+    private InputStream inputStream;
+    private ObjectInputStream objectInputStream;
 
     @Override
     public void run() {
-        startConnection();
         while (true) {
-            try {
-                clientConnect();
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (socketOut == null || !isConnected()) {
+                startConnection();
             }
         }
     }
@@ -25,8 +27,11 @@ public class InputConnection extends Thread {
     public void startConnection() {
         try {
             System.out.println("Start");
-            serverSocket = new ServerSocket(PORT);
-            clientConnect();
+            socketOut = new Socket(HOST, PORT);
+            inputStream = socketOut.getInputStream();
+            objectInputStream = new ObjectInputStream(inputStream);
+            System.out.println("OutputConnection establishment");
+            isConnected();
         } catch (Exception e) {
             try {
                 Thread.sleep(500);
@@ -37,9 +42,14 @@ public class InputConnection extends Thread {
         }
     }
 
-    private void clientConnect() throws IOException {
-        input = serverSocket.accept();
-        System.out.println("Client connect");
-    }
+    public boolean isConnected() {
+        try {
+            objectInputStream.readObject();
 
+        } catch (Exception e) {
+            System.out.println("It isn't connection");
+            return false;
+        }
+        return true;
+    }
 }
