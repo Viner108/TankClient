@@ -1,26 +1,27 @@
 package tank.connection;
 
+import tank.MyObjectOutputStream;
 import tank.event.KeyEventDto;
+import tank.event.TankDto;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class OutputConnection extends Thread implements Connection{
+public class OutputConnection extends Thread implements Connection {
     private static String HOST = "192.168.1.105";
     private static int PORT = 8001;
     private Socket socketOut;
     private OutputStream outputStream;
     private ObjectOutputStream objectOutputStream;
-    private int i;
+    private static KeyEventDto keyEventDto = new KeyEventDto();
 
 
     @Override
     public void run() {
         while (true) {
-            if (socketOut == null || !isConnected()) {
-                i=0;
+            if (socketOut == null || !keyPressed(keyEventDto)) {
                 startConnection();
             }
         }
@@ -31,9 +32,8 @@ public class OutputConnection extends Thread implements Connection{
             System.out.println("Start");
             socketOut = new Socket(HOST, PORT);
             outputStream = socketOut.getOutputStream();
-            objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream = new MyObjectOutputStream(outputStream);
             System.out.println("OutputConnection establishment");
-            isConnected();
         } catch (Exception e) {
             try {
                 Thread.sleep(500);
@@ -44,17 +44,31 @@ public class OutputConnection extends Thread implements Connection{
         }
     }
 
-    public boolean isConnected() {
-        try {
-            KeyEventDto keyEventDto = new KeyEventDto();
-            keyEventDto.setKeyCode(i);
-            objectOutputStream.writeObject(keyEventDto);
-            i++;
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            System.out.println("It isn't connection");
-            return false;
+
+    public boolean keyPressed(KeyEventDto e) {
+        if (objectOutputStream != null) {
+            try {
+                synchronized (objectOutputStream) {
+                    objectOutputStream.writeObject(e);
+                }
+            } catch (IOException ex) {
+                System.out.println("It isn't connection");
+                return false;
+            }
         }
         return true;
+    }
+
+    //
+    public void keyReleased(KeyEventDto e) {
+        if (objectOutputStream != null) {
+            try {
+                synchronized (objectOutputStream) {
+                    objectOutputStream.writeObject(e);
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

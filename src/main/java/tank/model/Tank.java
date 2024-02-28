@@ -114,13 +114,11 @@ public class Tank {
                 break;
             }
             case KeyEvent.VK_W: {
-//                deltaX=+speed;
                 deltaX = (float) Math.cos(Math.toRadians(alpha)) * speed;
                 deltaY = (float) Math.sin(Math.toRadians(alpha)) * speed;
                 break;
             }
             case KeyEvent.VK_S: {
-//                deltaX=-speed;
                 deltaX = -(float) Math.cos(Math.toRadians(alpha)) * speed;
                 deltaY = -(float) Math.sin(Math.toRadians(alpha)) * speed;
                 break;

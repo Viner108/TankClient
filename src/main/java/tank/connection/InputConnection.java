@@ -1,7 +1,10 @@
 package tank.connection;
 
+import tank.MyObjectInputStream;
 import tank.event.KeyEventDto;
+import tank.event.TankDto;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -29,7 +32,7 @@ public class InputConnection extends Thread implements Connection{
             System.out.println("Start");
             socketOut = new Socket(HOST, PORT);
             inputStream = socketOut.getInputStream();
-            objectInputStream = new ObjectInputStream(inputStream);
+            objectInputStream = new MyObjectInputStream(inputStream);
             System.out.println("OutputConnection establishment");
             isConnected();
         } catch (Exception e) {
@@ -44,12 +47,13 @@ public class InputConnection extends Thread implements Connection{
 
     public boolean isConnected() {
         try {
-            KeyEventDto keyEventDto = (KeyEventDto) objectInputStream.readObject();
-            System.out.println(keyEventDto.toString());
+            TankDto tankDto = (TankDto) objectInputStream.readObject();
+            System.out.println(tankDto.toString());
         } catch (Exception e) {
             System.out.println("It isn't connection");
             return false;
         }
         return true;
     }
+
 }
