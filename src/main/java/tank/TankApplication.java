@@ -24,8 +24,6 @@ public class TankApplication {
 //        frame0.add(scena);
 //        frame0.setVisible(true);
 
-        InputConnection inputConnection = new InputConnection();
-        inputConnection.start();
 
         Tank tank=new Tank("1",0,100);
         ServerThread tankThread = new ServerThread();
@@ -43,7 +41,9 @@ public class TankApplication {
         scena.outputConnection = outputConnection;
         frame.add(scena);
         frame.setVisible(true);
+        InputConnection inputConnection = new InputConnection(scena);
 
+        inputConnection.start();
         outputConnection.start();
         tankThread.start();
 

@@ -3,6 +3,7 @@ package tank.connection;
 import tank.MyObjectInputStream;
 import tank.event.KeyEventDto;
 import tank.event.TankDto;
+import tank.view.Scena;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -17,6 +18,11 @@ public class InputConnection extends Thread implements Connection{
     private Socket socketOut;
     private InputStream inputStream;
     private ObjectInputStream objectInputStream;
+    private Scena scena;
+
+    public InputConnection(Scena scena) {
+        this.scena = scena;
+    }
 
     @Override
     public void run() {
@@ -49,6 +55,7 @@ public class InputConnection extends Thread implements Connection{
         try {
             TankDto tankDto = (TankDto) objectInputStream.readObject();
             System.out.println(tankDto.toString());
+            scena.setTankDto(tankDto);
         } catch (Exception e) {
             System.out.println("It isn't connection");
             return false;

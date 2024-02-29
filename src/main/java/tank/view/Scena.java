@@ -2,6 +2,7 @@ package tank.view;
 
 import tank.connection.OutputConnection;
 import tank.event.KeyEventDto;
+import tank.event.TankDto;
 import tank.model.Tank;
 import tank.server.ServerThread;
 
@@ -13,6 +14,7 @@ import java.util.Map;
 
 public class Scena extends JPanel implements KeyListener {
     Tank tank;
+    private TankDto tankDto=new TankDto();
     public ServerThread tankThread;
     public OutputConnection outputConnection;
 
@@ -32,11 +34,20 @@ public class Scena extends JPanel implements KeyListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         tank.draw(g);
+        tankDto.draw(g);
         repaint();
     }
 
     public void updateTankMapWithDto(Tank tank) {
         tank.paintCharges();
+    }
+
+    public TankDto getTankDto() {
+        return tankDto;
+    }
+
+    public void setTankDto(TankDto tankDto) {
+        this.tankDto = tankDto;
     }
 
     @Override
