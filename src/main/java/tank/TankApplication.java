@@ -23,9 +23,9 @@ public class TankApplication {
 //        scena.tankThread=tankThread;
 //        frame0.add(scena);
 //        frame0.setVisible(true);
-//
-//        InputConnection inputConnection = new InputConnection();
-//        inputConnection.start();
+
+        InputConnection inputConnection = new InputConnection();
+        inputConnection.start();
 
         Tank tank=new Tank("1",0,100);
         ServerThread tankThread = new ServerThread();

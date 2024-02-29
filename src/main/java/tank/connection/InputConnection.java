@@ -33,7 +33,7 @@ public class InputConnection extends Thread implements Connection{
             socketOut = new Socket(HOST, PORT);
             inputStream = socketOut.getInputStream();
             objectInputStream = new MyObjectInputStream(inputStream);
-            System.out.println("OutputConnection establishment");
+            System.out.println("InputConnection establishment");
             isConnected();
         } catch (Exception e) {
             try {
