@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Map;
 
 public class InputConnection extends Thread implements Connection{
     private static String HOST = "192.168.1.105";
@@ -53,9 +54,8 @@ public class InputConnection extends Thread implements Connection{
 
     public boolean isConnected() {
         try {
-            TankDto tankDto = (TankDto) objectInputStream.readObject();
-            System.out.println(tankDto.toString());
-            scena.setTankDto(tankDto);
+            Map<Integer,TankDto> tanks = (Map<Integer, TankDto>) objectInputStream.readObject();
+            scena.setTanks(tanks);
         } catch (Exception e) {
             System.out.println("It isn't connection");
             return false;

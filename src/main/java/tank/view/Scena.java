@@ -10,11 +10,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Scena extends JPanel implements KeyListener {
     Tank tank;
-    private TankDto tankDto=new TankDto();
+    Map<Integer, TankDto> tanks = new HashMap<>();
     public ServerThread tankThread;
     public OutputConnection outputConnection;
 
@@ -34,7 +35,7 @@ public class Scena extends JPanel implements KeyListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         tank.draw(g);
-        tankDto.draw(g);
+        tanks.values().forEach(t -> t.draw(g));
         repaint();
     }
 
@@ -42,24 +43,25 @@ public class Scena extends JPanel implements KeyListener {
         tank.paintCharges();
     }
 
-    public TankDto getTankDto() {
-        return tankDto;
+    public Map<Integer, TankDto> getTanks() {
+        return tanks;
     }
 
-    public void setTankDto(TankDto tankDto) {
-        this.tankDto = tankDto;
+    public void setTanks(Map<Integer, TankDto> tanks) {
+        this.tanks = tanks;
     }
+
 
     @Override
     public void keyPressed(KeyEvent e) {
 //        tankThread.keyPressed(KeyEventDto.fromKeyEvent(e));
-        outputConnection.keyPressed(KeyEventDto.fromKeyEvent(e,true));
+        outputConnection.keyPressed(KeyEventDto.fromKeyEvent(e, true));
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
 //        tankThread.keyReleased(KeyEventDto.fromKeyEvent(e));
-        outputConnection.keyReleased(KeyEventDto.fromKeyEvent(e,false));
+        outputConnection.keyReleased(KeyEventDto.fromKeyEvent(e, false));
     }
 
     @Override

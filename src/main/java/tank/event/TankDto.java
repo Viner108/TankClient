@@ -5,6 +5,12 @@ import java.io.Serializable;
 
 public class TankDto implements Serializable {
     private static final long serialVersionUID = 8038539938717817115L;
+    int id;
+
+    public TankDto(int id) {
+        this.id = id;
+    }
+
     private int X = 0;
     private int Y = 0;
 
@@ -20,5 +26,13 @@ public class TankDto implements Serializable {
                "X=" + X +
                ", Y=" + Y +
                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
