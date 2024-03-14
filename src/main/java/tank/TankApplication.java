@@ -25,7 +25,7 @@ public class TankApplication {
 //        frame0.setVisible(true);
 
 
-        Tank tank=new Tank("1",0,100);
+        Tank tank=new Tank(1,0,100);
         ServerThread tankThread = new ServerThread();
         OutputConnection outputConnection = new OutputConnection();
 

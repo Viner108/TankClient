@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class Scena extends JPanel implements KeyListener {
     Tank tank;
-    Map<Integer, TankDto> tanks = new HashMap<>();
+    Map<Integer, Tank> tanks = new HashMap<>();
     public ServerThread tankThread;
     public OutputConnection outputConnection;
 
@@ -43,13 +43,14 @@ public class Scena extends JPanel implements KeyListener {
         tank.paintCharges();
     }
 
-    public Map<Integer, TankDto> getTanks() {
+    public Map<Integer, Tank> getTanks() {
         return tanks;
     }
 
-    public void setTanks(Map<Integer, TankDto> tanks) {
+    public void setTanks(Map<Integer, Tank> tanks) {
         this.tanks = tanks;
     }
+
 
 
     @Override

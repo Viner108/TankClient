@@ -13,7 +13,7 @@ import java.util.Map;
 
 
 public class Tank {
-    public String id;
+    public int id;
     private BufferedImage imageTankActive;
     private BufferedImage imageTankStopped;
     public static float TANK_HEIGHT = 109F;
@@ -32,7 +32,7 @@ public class Tank {
 //    public float alpha = 0.0F;
 //    public static int BG_BORDER = 3;
 
-    public Tank(String id, float X, float Y) {
+    public Tank(int id, float X, float Y) {
         this.X = X;
         this.Y = Y;
         tore = new Tore(X, Y);
@@ -171,5 +171,19 @@ public class Tank {
         }
     }
 
+    public float getY() {
+        return Y;
+    }
 
+    public void setY(float y) {
+        Y = y;
+    }
+
+    public float getX() {
+        return X;
+    }
+
+    public void setX(float x) {
+        X = x;
+    }
 }

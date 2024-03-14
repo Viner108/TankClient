@@ -3,6 +3,7 @@ package tank.connection;
 import tank.MyObjectInputStream;
 import tank.event.KeyEventDto;
 import tank.event.TankDto;
+import tank.model.Tank;
 import tank.view.Scena;
 
 import java.awt.event.KeyEvent;
@@ -11,9 +12,10 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Map;
 
-public class InputConnection extends Thread implements Connection{
+public class InputConnection extends Thread {
     private static String HOST = "192.168.1.105";
     private static int PORT = 8002;
     private Socket socketOut;
@@ -55,7 +57,12 @@ public class InputConnection extends Thread implements Connection{
     public boolean isConnected() {
         try {
             Map<Integer,TankDto> tanks = (Map<Integer, TankDto>) objectInputStream.readObject();
-            scena.setTanks(tanks);
+            Map<Integer, Tank> tankMap = new HashMap<>();
+            for (TankDto tankDto : tanks.values()) {
+                tankMap.put(tankDto.getId(),new Tank(tankDto.getId(),tankDto.getX(),tankDto.getY()));
+                System.out.println(tankDto.toString());
+            }
+            scena.setTanks(tankMap);
         } catch (Exception e) {
             System.out.println("It isn't connection");
             return false;
