@@ -7,10 +7,7 @@ import tank.model.Tank;
 import tank.view.Scena;
 
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +17,7 @@ public class InputConnection extends Thread {
     private static int PORT = 8002;
     private Socket socketOut;
     private InputStream inputStream;
-    private ObjectInputStream objectInputStream;
+    private MyObjectInputStream objectInputStream;
     private Scena scena;
 
     public InputConnection(Scena scena) {
@@ -30,9 +27,10 @@ public class InputConnection extends Thread {
     @Override
     public void run() {
         while (true) {
-            if (socketOut == null || !isConnected()) {
+            if (socketOut == null) {
                 startConnection();
             }
+            isConnected();
         }
     }
 
@@ -54,20 +52,27 @@ public class InputConnection extends Thread {
         }
     }
 
-    public boolean isConnected() {
+    public void isConnected() {
         try {
-            Map<Integer,TankDto> tanks = (Map<Integer, TankDto>) objectInputStream.readObject();
             Map<Integer, Tank> tankMap = new HashMap<>();
-            for (TankDto tankDto : tanks.values()) {
+            while (true) {
+                TankDto tankDto = (TankDto) objectInputStream.readObject();
+                Tank tank = new Tank(tankDto.getId(), tankDto.getX(), tankDto.getY());
+                System.out.println(tankDto.toString());
                 tankMap.put(tankDto.getId(),new Tank(tankDto.getId(),tankDto.getX(),tankDto.getY()));
                 System.out.println(tankDto.toString());
+                scena.setTanks(tankMap);
             }
-            scena.setTanks(tankMap);
+//            Map<Integer,TankDto> tanks = (Map<Integer, TankDto>) objectInputStream.readObject();
+//            for (TankDto tankDto : tanks.values()) {
+//                tankMap.put(tankDto.getId(),new Tank(tankDto.getId(),tankDto.getX(),tankDto.getY()));
+//                System.out.println(tankDto.toString());
+//            }
+        } catch (EOFException e) {
+            System.out.println("End of stream");
         } catch (Exception e) {
             System.out.println("It isn't connection");
-            return false;
+            startConnection();
         }
-        return true;
     }
-
 }

@@ -6,13 +6,14 @@ import java.io.ObjectInputStream;
 import java.io.StreamCorruptedException;
 
 public class MyObjectInputStream extends ObjectInputStream {
-    public MyObjectInputStream(InputStream out) throws IOException {
-        super(out);
+    public MyObjectInputStream(InputStream inputStream) throws IOException {
+        super(inputStream);
     }
 
     @Override
-    protected void readStreamHeader() throws IOException, StreamCorruptedException {
+    protected void readStreamHeader() {
 
     }
+
 
 }

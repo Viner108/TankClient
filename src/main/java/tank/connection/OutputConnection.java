@@ -21,9 +21,10 @@ public class OutputConnection extends Thread {
     @Override
     public void run() {
         while (true) {
-            if (socketOut == null || !keyPressed(keyEventDto)) {
+            if (socketOut == null) {
                 startConnection();
             }
+            keyPressed(keyEventDto);
         }
     }
 
@@ -45,7 +46,7 @@ public class OutputConnection extends Thread {
     }
 
 
-    public boolean keyPressed(KeyEventDto e) {
+    public void keyPressed(KeyEventDto e) {
         if (objectOutputStream != null) {
             try {
                 synchronized (objectOutputStream) {
@@ -53,10 +54,9 @@ public class OutputConnection extends Thread {
                 }
             } catch (IOException ex) {
                 System.out.println("It isn't connection");
-                return false;
+                startConnection();
             }
         }
-        return true;
     }
 
     //
