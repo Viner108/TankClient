@@ -17,7 +17,7 @@ public class InputConnection extends Thread {
     private static int PORT = 8002;
     private Socket socketOut;
     private InputStream inputStream;
-    private MyObjectInputStream objectInputStream;
+    private ObjectInputStream objectInputStream;
     private Scena scena;
 
     public InputConnection(Scena scena) {
@@ -26,11 +26,11 @@ public class InputConnection extends Thread {
 
     @Override
     public void run() {
+        startConnection();
         while (true) {
-            if (socketOut == null) {
-                startConnection();
+            if (!socketOut.isClosed()) {
+                isConnected();
             }
-            isConnected();
         }
     }
 
@@ -39,7 +39,7 @@ public class InputConnection extends Thread {
             System.out.println("Start");
             socketOut = new Socket(HOST, PORT);
             inputStream = socketOut.getInputStream();
-            objectInputStream = new MyObjectInputStream(inputStream);
+            objectInputStream = new ObjectInputStream(inputStream);
             System.out.println("InputConnection establishment");
             isConnected();
         } catch (Exception e) {
@@ -70,6 +70,7 @@ public class InputConnection extends Thread {
 //            }
         } catch (EOFException e) {
             System.out.println("End of stream");
+            startConnection();
         } catch (Exception e) {
             System.out.println("It isn't connection");
             startConnection();

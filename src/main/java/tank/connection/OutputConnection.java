@@ -20,11 +20,11 @@ public class OutputConnection extends Thread {
 
     @Override
     public void run() {
+        startConnection();
         while (true) {
-            if (socketOut == null) {
-                startConnection();
+            if (!socketOut.isClosed()) {
+                keyPressed(keyEventDto);
             }
-            keyPressed(keyEventDto);
         }
     }
 
