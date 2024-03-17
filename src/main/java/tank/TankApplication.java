@@ -25,7 +25,7 @@ public class TankApplication {
 //        frame0.setVisible(true);
 
 
-        Tank tank=new Tank(1,0,100);
+        Tank tank = new Tank(1, 0, 100);
         ServerThread tankThread = new ServerThread();
         OutputConnection outputConnection = new OutputConnection();
 
@@ -35,14 +35,14 @@ public class TankApplication {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setResizable(true);
-        Scena scena=new Scena(tank);
-        tankThread.insertTank(frame,tank,scena);
-        scena.tankThread=tankThread;
+        Scena scena = new Scena(tank);
+        tankThread.insertTank(frame, tank, scena);
+        scena.tankThread = tankThread;
         scena.outputConnection = outputConnection;
         frame.add(scena);
         frame.setVisible(true);
-        InputConnection inputConnection = new InputConnection(scena);
-
+        InputConnection inputConnection = new InputConnection();
+        inputConnection.setScena(scena);
         inputConnection.start();
         outputConnection.start();
         tankThread.start();

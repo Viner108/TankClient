@@ -20,9 +20,7 @@ public class InputConnection extends Thread {
     private ObjectInputStream objectInputStream;
     private Scena scena;
 
-    public InputConnection(Scena scena) {
-        this.scena = scena;
-    }
+
 
     @Override
     public void run() {
@@ -63,11 +61,6 @@ public class InputConnection extends Thread {
                 System.out.println(tankDto.toString());
                 scena.setTanks(tankMap);
             }
-//            Map<Integer,TankDto> tanks = (Map<Integer, TankDto>) objectInputStream.readObject();
-//            for (TankDto tankDto : tanks.values()) {
-//                tankMap.put(tankDto.getId(),new Tank(tankDto.getId(),tankDto.getX(),tankDto.getY()));
-//                System.out.println(tankDto.toString());
-//            }
         } catch (EOFException e) {
             System.out.println("End of stream");
             startConnection();
@@ -75,5 +68,13 @@ public class InputConnection extends Thread {
             System.out.println("It isn't connection");
             startConnection();
         }
+    }
+
+    public Scena getScena() {
+        return scena;
+    }
+
+    public void setScena(Scena scena) {
+        this.scena = scena;
     }
 }

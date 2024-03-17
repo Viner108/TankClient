@@ -71,4 +71,11 @@ public class OutputConnection extends Thread {
             }
         }
     }
+    public void closeSocket(){
+        try {
+            socketOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
