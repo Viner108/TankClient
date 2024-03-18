@@ -7,14 +7,8 @@ public class TankDto implements Serializable {
     private static final long serialVersionUID = 8038539938717817115L;
     int id;
 
-    public TankDto() {
-        super();
-        System.out.println("dsgg");
-    }
-
     public TankDto(int id) {
         this.id = id;
-        System.out.println("sdgdfgh");
     }
 
     private int X = 0;
@@ -47,7 +41,8 @@ public class TankDto implements Serializable {
     @Override
     public String toString() {
         return "TankDto{" +
-               "X=" + X +
+               "id=" + id +
+               ", X=" + X +
                ", Y=" + Y +
                '}';
     }

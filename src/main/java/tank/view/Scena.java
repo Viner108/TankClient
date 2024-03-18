@@ -8,23 +8,23 @@ import tank.server.ServerThread;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
-public class Scena extends JPanel implements KeyListener {
-    Tank tank;
+public class Scena extends JPanel implements KeyListener, TestForScena{
     Map<Integer, Tank> tanks = new HashMap<>();
     public ServerThread tankThread;
     public OutputConnection outputConnection;
 
-    public Scena(Tank tank) {
+    public Scena() {
         super();
         this.setFocusable(true);
         this.requestFocusInWindow();
         grabFocus();
-        this.tank = tank;
         addKeyListener(this);
         this.setFocusable(true);
         grabFocus();
@@ -34,8 +34,13 @@ public class Scena extends JPanel implements KeyListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        tank.draw(g);
-        tanks.values().forEach(t -> t.draw(g));
+        synchronized (tanks) {
+            Iterator<Tank> tankIterator = tanks.values().iterator();
+            while (tankIterator.hasNext()) {
+                Tank t = tankIterator.next();
+                t.draw(g);
+            }
+        }
         repaint();
     }
 
@@ -51,6 +56,27 @@ public class Scena extends JPanel implements KeyListener {
         this.tanks = tanks;
     }
 
+    @Override
+    public void driveForward() {
+        for (int i = 0; i < 10; i++) {
+            outputConnection.keyPressed(KeyEventDto.fromKeyEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_W, 'W'), true));
+        }
+    }
+    @Override
+    public void driveInCircles() {
+        for (int i = 0; i < 20; i++) {
+            outputConnection.keyPressed(KeyEventDto.fromKeyEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_W, 'W'), true));
+        }
+        for (int i = 0; i < 20; i++) {
+            outputConnection.keyPressed(KeyEventDto.fromKeyEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_D, 'D'), true));
+        }
+        for (int i = 0; i < 20; i++) {
+            outputConnection.keyPressed(KeyEventDto.fromKeyEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_S, 'S'), true));
+        }
+        for (int i = 0; i < 20; i++) {
+            outputConnection.keyPressed(KeyEventDto.fromKeyEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_A, 'A'), true));
+        }
+    }
 
 
     @Override

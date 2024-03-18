@@ -11,7 +11,7 @@ import java.net.Socket;
 
 public class OutputConnection extends Thread {
     private static String HOST = "192.168.1.105";
-    private static int PORT = 8001;
+    private int PORT = 8001;
     private Socket socketOut;
     private OutputStream outputStream;
     private ObjectOutputStream objectOutputStream;
@@ -22,7 +22,10 @@ public class OutputConnection extends Thread {
     public void run() {
         startConnection();
         while (true) {
-            if (!socketOut.isClosed()) {
+            if (socketOut==null){
+                startConnection();
+            }
+            if (socketOut!= null&&!socketOut.isClosed()) {
                 keyPressed(keyEventDto);
             }
         }
@@ -77,5 +80,13 @@ public class OutputConnection extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getPORT() {
+        return PORT;
+    }
+
+    public  void setPORT(int PORT) {
+        this.PORT = PORT;
     }
 }

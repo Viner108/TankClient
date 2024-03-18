@@ -9,8 +9,13 @@ import tank.view.Scena;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankApplication {
+    public static Scena scena;
+    public static JFrame frame;
+    public static List<Scena> list = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -30,15 +35,12 @@ public class TankApplication {
         OutputConnection outputConnection = new OutputConnection();
 
 
-        JFrame frame = new JFrame(gd0.getDefaultConfiguration());
+        frame = new JFrame(gd0.getDefaultConfiguration());
         frame.setTitle("Танки");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 1000);
+        frame.setSize(500, 500);
         frame.setResizable(true);
-        Scena scena = new Scena(tank);
-        tankThread.insertTank(frame, tank, scena);
-        scena.tankThread = tankThread;
-        scena.outputConnection = outputConnection;
+        createScena(tank, tankThread, outputConnection);
         frame.add(scena);
         frame.setVisible(true);
         InputConnection inputConnection = new InputConnection();
@@ -46,7 +48,16 @@ public class TankApplication {
         inputConnection.start();
         outputConnection.start();
         tankThread.start();
+        list.add(scena);
 
+    }
+
+    private static Scena createScena(Tank tank, ServerThread tankThread, OutputConnection outputConnection) {
+        scena = new Scena();
+        tankThread.insertTank(frame, tank, scena);
+        scena.tankThread = tankThread;
+        scena.outputConnection = outputConnection;
+        return scena;
     }
 
 
