@@ -5,12 +5,10 @@ import org.junit.jupiter.api.*;
 import tank.TankApplication;
 import tank.event.KeyEventDto;
 import tank.event.TankDto;
-import tank.model.Tank;
 import tank.server.ServerMock;
-import tank.view.Scena;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -77,19 +75,59 @@ public class ConnectionWithServerMockTest {
     }
 
     @Test
-    void test() {
+    @DisplayName("Start many clients")
+    void testForManyClients() {
         String[] args = new String[1];
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 4; i++) {
             TankApplication.main(args);
         }
         try {
-            Thread.sleep(100);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        TankApplication.list.get(0).driveInCircles();
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                TankApplication.list.get(0).driveForward();
+                for (int i = 0; i < 10; i++) {
+                    TankApplication.list.get(0).driveInCircles();
+                }
+            }
+        });
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 10; i++) {
+                    TankApplication.list.get(1).driveInCircles();
+                }
+            }
+        });
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                TankApplication.list.get(2).driveForwardAndDown();
+                for (int i = 0; i < 10; i++) {
+                    TankApplication.list.get(2).driveInCircles();
+                }
+            }
+        });
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                TankApplication.list.get(3).driveForwardAndDownAndBack();
+                for (int i = 0; i < 10; i++) {
+                    TankApplication.list.get(3).driveInCircles();
+                }
+            }
+        });
+
+
+
+
         try {
-            Thread.sleep(50000);
+            Thread.sleep(110000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

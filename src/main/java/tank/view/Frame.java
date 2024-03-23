@@ -10,7 +10,8 @@ public class Frame extends JFrame  {
         frameInit();
         setTitle("Танки");
         getContentPane().setBackground(new Color(34, 139, 34));
-        setSize(1000, 1000);
+        setSize(500, 500);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
         setVisible(true);

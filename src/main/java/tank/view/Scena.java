@@ -2,20 +2,18 @@ package tank.view;
 
 import tank.connection.OutputConnection;
 import tank.event.KeyEventDto;
-import tank.event.TankDto;
 import tank.model.Tank;
 import tank.server.ServerThread;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class Scena extends JPanel implements KeyListener, TestForScena{
+public class Scena extends JPanel implements KeyListener, TestForScena {
     Map<Integer, Tank> tanks = new HashMap<>();
     public ServerThread tankThread;
     public OutputConnection outputConnection;
@@ -56,26 +54,39 @@ public class Scena extends JPanel implements KeyListener, TestForScena{
         this.tanks = tanks;
     }
 
-    @Override
-    public void driveForward() {
-        for (int i = 0; i < 10; i++) {
-            outputConnection.keyPressed(KeyEventDto.fromKeyEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_W, 'W'), true));
+    private void sendPressKey(int vkW, char w, int number) {
+        for (int i = 0; i < number; i++) {
+            outputConnection.keyPressed(KeyEventDto.fromKeyEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, vkW, w), true));
         }
     }
+
+    @Override
+    public void driveForward() {
+        sendPressKey(KeyEvent.VK_W, 'W', 20);
+        driveInCircles();
+    }
+
+    @Override
+    public void driveForwardAndDown() {
+        sendPressKey(KeyEvent.VK_W, 'W', 20);
+        sendPressKey(KeyEvent.VK_D, 'D', 20);
+        driveInCircles();
+    }
+
+    @Override
+    public void driveForwardAndDownAndBack() {
+        sendPressKey(KeyEvent.VK_W, 'W', 20);
+        sendPressKey(KeyEvent.VK_D, 'D', 20);
+        sendPressKey(KeyEvent.VK_S, 'S', 20);
+        driveInCircles();
+    }
+
     @Override
     public void driveInCircles() {
-        for (int i = 0; i < 20; i++) {
-            outputConnection.keyPressed(KeyEventDto.fromKeyEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_W, 'W'), true));
-        }
-        for (int i = 0; i < 20; i++) {
-            outputConnection.keyPressed(KeyEventDto.fromKeyEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_D, 'D'), true));
-        }
-        for (int i = 0; i < 20; i++) {
-            outputConnection.keyPressed(KeyEventDto.fromKeyEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_S, 'S'), true));
-        }
-        for (int i = 0; i < 20; i++) {
-            outputConnection.keyPressed(KeyEventDto.fromKeyEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_A, 'A'), true));
-        }
+        sendPressKey(KeyEvent.VK_W, 'W', 20);
+        sendPressKey(KeyEvent.VK_D, 'D', 20);
+        sendPressKey(KeyEvent.VK_S, 'S', 20);
+        sendPressKey(KeyEvent.VK_A, 'A', 20);
     }
 
 
