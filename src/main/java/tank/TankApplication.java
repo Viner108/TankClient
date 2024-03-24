@@ -52,6 +52,4 @@ public class TankApplication {
         scena.outputConnection = outputConnection;
         return scena;
     }
-
-
 }

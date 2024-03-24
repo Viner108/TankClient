@@ -56,7 +56,7 @@ public class Tank {
         g.fillRect((int) X - BG_BORDER, (int) Y - BG_BORDER, (int) TANK_HEIGHT + BG_BORDER, (int) TANK_WIDTH + BG_BORDER);
         g2d.rotate(Math.toRadians(-alpha), (int) (X + TANK_HEIGHT / 2), (int) (Y + TANK_WIDTH / 2));
         g2d.rotate(Math.toRadians(alpha), (int) (X + TANK_HEIGHT / 2), (int) (Y + TANK_WIDTH / 2));
-        if(deltaX==0.0F && deltaY==0.0F) {
+        if (deltaX == 0.0F && deltaY == 0.0F) {
             g.drawImage(imageTankStopped, (int) X, (int) Y, (int) TANK_HEIGHT, (int) TANK_WIDTH, null);
         } else {
             g.drawImage(imageTankActive, (int) X, (int) Y, (int) TANK_HEIGHT, (int) TANK_WIDTH, null);
@@ -69,7 +69,7 @@ public class Tank {
         tore.chargeList.forEach(charge -> {
             Charge charge1 = chargeMap.get(charge.id);
             if (charge1 == null) {
-                chargeMap.put(charge.id, new Charge( charge.X, charge.Y, charge.alpha));
+                chargeMap.put(charge.id, new Charge(charge.X, charge.Y, charge.alpha));
             } else {
                 charge1.X = charge.X;
                 charge1.Y = charge.Y;
@@ -90,7 +90,7 @@ public class Tank {
         if (0 >= X) {
             X = frame.getWidth();
         }
-        if(frame.getHeight() <= Y){
+        if (frame.getHeight() <= Y) {
             Y = 1;
         }
         if (0 >= Y) {
@@ -99,7 +99,7 @@ public class Tank {
         X = X + deltaX;
         Y = Y + deltaY;
         alpha = alpha + deltaAlpha;
-        tore.move((X + TANK_HEIGHT / 2.4F), (Y + TANK_WIDTH / 3),frame);
+        tore.move((X + TANK_HEIGHT / 2.4F), (Y + TANK_WIDTH / 3), frame);
     }
 
     public void keyEventPressed(KeyEventDto e) {
@@ -169,6 +169,54 @@ public class Tank {
             }
 
         }
+    }
+
+    public float getAlpha() {
+        return alpha;
+    }
+
+    public float getDeltaX() {
+        return deltaX;
+    }
+
+    public void setDeltaX(float deltaX) {
+        this.deltaX = deltaX;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public float getDeltaY() {
+        return deltaY;
+    }
+
+    public void setDeltaY(float deltaY) {
+        this.deltaY = deltaY;
+    }
+
+    public float getDeltaAlpha() {
+        return deltaAlpha;
+    }
+
+    public void setDeltaAlpha(float deltaAlpha) {
+        this.deltaAlpha = deltaAlpha;
+    }
+
+    public float getSpeedAlpha() {
+        return speedAlpha;
+    }
+
+    public void setSpeedAlpha(float speedAlpha) {
+        this.speedAlpha = speedAlpha;
+    }
+
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
     }
 
     public float getY() {

@@ -57,7 +57,11 @@ public class InputConnection extends Thread {
             while (true) {
                 tankDto = (TankDto) objectInputStream.readObject();
                 System.out.println(tankDto.toString());
-                tankMap.put(tankDto.getId(),new Tank(tankDto.getId(),tankDto.getX(),tankDto.getY()));
+                Tank tank =new Tank(tankDto.getId(),tankDto.getX(),tankDto.getY());
+                tank.setAlpha(tankDto.getAlpha());
+                tank.setDeltaAlpha(tankDto.getDeltaAlpha());
+                tank.setSpeedAlpha(tankDto.getSpeedAlpha());
+                tankMap.put(tankDto.getId(),tank);
                 scena.setTanks(tankMap);
             }
         } catch (EOFException e) {

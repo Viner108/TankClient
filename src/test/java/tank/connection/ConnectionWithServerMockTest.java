@@ -123,11 +123,8 @@ public class ConnectionWithServerMockTest {
             }
         });
 
-
-
-
         try {
-            Thread.sleep(110000);
+            Thread.sleep(500000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
