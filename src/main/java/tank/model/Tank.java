@@ -1,6 +1,6 @@
 package tank.model;
 
-import tank.event.KeyEventDto;
+import tank.dto.KeyEventDto;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -169,6 +169,14 @@ public class Tank {
             }
 
         }
+    }
+
+    public Tore getTore() {
+        return tore;
+    }
+
+    public void setTore(Tore tore) {
+        this.tore = tore;
     }
 
     public float getAlpha() {

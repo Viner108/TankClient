@@ -3,8 +3,8 @@ package tank.connection;
 
 import org.junit.jupiter.api.*;
 import tank.TankApplication;
-import tank.event.KeyEventDto;
-import tank.event.TankDto;
+import tank.dto.KeyEventDto;
+import tank.dto.TankDto;
 import tank.server.ServerMock;
 
 import java.util.concurrent.ExecutorService;
@@ -107,7 +107,7 @@ public class ConnectionWithServerMockTest {
         executorService.submit(new Runnable() {
             @Override
             public void run() {
-                TankApplication.list.get(2).driveForwardAndDown();
+                TankApplication.list.get(2).driveDown();
                 for (int i = 0; i < 10; i++) {
                     TankApplication.list.get(2).driveInCircles();
                 }

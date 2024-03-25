@@ -1,7 +1,7 @@
 package tank.view;
 
 import tank.connection.OutputConnection;
-import tank.event.KeyEventDto;
+import tank.dto.KeyEventDto;
 import tank.model.Tank;
 import tank.server.ServerThread;
 
@@ -67,22 +67,25 @@ public class Scena extends JPanel implements KeyListener, TestForScena {
     }
 
     @Override
-    public void driveForwardAndDown() {
-        sendPressKey(KeyEvent.VK_W, 'W', 20);
+    public void driveDown() {
         sendPressKey(KeyEvent.VK_D, 'D', 20);
+        sendPressKey(KeyEvent.VK_W, 'W', 20);
         driveInCircles();
     }
 
     @Override
     public void driveForwardAndDownAndBack() {
-        sendPressKey(KeyEvent.VK_W, 'W', 20);
         sendPressKey(KeyEvent.VK_D, 'D', 20);
+        sendPressKey(KeyEvent.VK_W, 'W', 20);
+        sendPressKey(KeyEvent.VK_A, 'A', 20);
         sendPressKey(KeyEvent.VK_S, 'S', 20);
         driveInCircles();
     }
 
     @Override
     public void driveInCircles() {
+        sendPressKey(KeyEvent.VK_W, 'W', 20);
+        sendPressKey(KeyEvent.VK_D, 'D', 20);
         sendPressKey(KeyEvent.VK_W, 'W', 20);
         sendPressKey(KeyEvent.VK_D, 'D', 20);
         sendPressKey(KeyEvent.VK_S, 'S', 20);

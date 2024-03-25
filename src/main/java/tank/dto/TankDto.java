@@ -1,6 +1,5 @@
-package tank.event;
+package tank.dto;
 
-import java.awt.*;
 import java.io.Serializable;
 
 public class TankDto implements Serializable {
@@ -12,6 +11,7 @@ public class TankDto implements Serializable {
     int deltaY = 0;
     int deltaAlpha = 0;
     int speedAlpha = 2;
+    private ToreDto tore;
 
     public TankDto(int id) {
         this.id = id;
@@ -90,6 +90,14 @@ public class TankDto implements Serializable {
 
     public void setY(int y) {
         Y = y;
+    }
+
+    public ToreDto getTore() {
+        return tore;
+    }
+
+    public void setTore(ToreDto tore) {
+        this.tore = tore;
     }
 
     @Override

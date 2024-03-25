@@ -4,6 +4,6 @@ public interface TestForScena {
 
     void driveForward();
     void driveInCircles();
-    void driveForwardAndDown();
+    void driveDown();
     void driveForwardAndDownAndBack();
 }

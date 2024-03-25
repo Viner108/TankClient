@@ -66,4 +66,44 @@ public class Tore {
     public void zeroSpeedAlpha(){
         deltaAlpha = 0;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public float getY() {
+        return Y;
+    }
+
+    public void setY(float y) {
+        Y = y;
+    }
+
+    public float getX() {
+        return X;
+    }
+
+    public void setX(float x) {
+        X = x;
+    }
+
+    public float getAlpha() {
+        return alpha;
+    }
+
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
+    }
+
+    public float getDeltaAlpha() {
+        return deltaAlpha;
+    }
+
+    public void setDeltaAlpha(float deltaAlpha) {
+        this.deltaAlpha = deltaAlpha;
+    }
 }

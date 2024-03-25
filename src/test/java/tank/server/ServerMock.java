@@ -1,8 +1,8 @@
 package tank.server;
 
 import tank.MyObjectInputStream;
-import tank.event.KeyEventDto;
-import tank.event.TankDto;
+import tank.dto.KeyEventDto;
+import tank.dto.TankDto;
 
 import java.io.*;
 import java.net.ServerSocket;

@@ -1,7 +1,8 @@
 package tank.connection;
 
-import tank.event.TankDto;
+import tank.dto.TankDto;
 import tank.model.Tank;
+import tank.model.Tore;
 import tank.view.Scena;
 
 import java.io.*;
@@ -61,6 +62,9 @@ public class InputConnection extends Thread {
                 tank.setAlpha(tankDto.getAlpha());
                 tank.setDeltaAlpha(tankDto.getDeltaAlpha());
                 tank.setSpeedAlpha(tankDto.getSpeedAlpha());
+                Tore tore = new Tore(tankDto.getTore().X,tankDto.getTore().Y);
+                tore.setAlpha(tankDto.getTore().alpha);
+                tank.setTore(tore);
                 tankMap.put(tankDto.getId(),tank);
                 scena.setTanks(tankMap);
             }

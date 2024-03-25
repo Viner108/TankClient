@@ -1,8 +1,7 @@
 package tank.connection;
 
 import tank.MyObjectOutputStream;
-import tank.event.KeyEventDto;
-import tank.event.TankDto;
+import tank.dto.KeyEventDto;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

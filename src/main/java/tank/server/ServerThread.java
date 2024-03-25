@@ -1,6 +1,6 @@
 package tank.server;
 
-import tank.event.KeyEventDto;
+import tank.dto.KeyEventDto;
 import tank.model.Tank;
 import tank.view.Scena;
 
