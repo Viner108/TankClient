@@ -57,26 +57,29 @@ public class Scena extends JPanel implements KeyListener, TestForScena {
     private void sendPressKey(int vkW, char w, int number) {
         for (int i = 0; i < number; i++) {
             outputConnection.keyPressed(KeyEventDto.fromKeyEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, vkW, w), true));
+            outputConnection.keyReleased(KeyEventDto.fromKeyEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, vkW, w), false));
         }
     }
 
     @Override
     public void driveForward() {
-        sendPressKey(KeyEvent.VK_W, 'W', 20);
+        sendPressKey(KeyEvent.VK_W, 'W', 50);
         driveInCircles();
     }
 
     @Override
     public void driveDown() {
+        sendPressKey(KeyEvent.VK_W, 'W', 50);
         sendPressKey(KeyEvent.VK_D, 'D', 20);
-        sendPressKey(KeyEvent.VK_W, 'W', 20);
+        sendPressKey(KeyEvent.VK_W, 'W', 50);
         driveInCircles();
     }
 
     @Override
     public void driveForwardAndDownAndBack() {
+        sendPressKey(KeyEvent.VK_W, 'W', 50);
         sendPressKey(KeyEvent.VK_D, 'D', 20);
-        sendPressKey(KeyEvent.VK_W, 'W', 20);
+        sendPressKey(KeyEvent.VK_W, 'W', 50);
         sendPressKey(KeyEvent.VK_A, 'A', 20);
         sendPressKey(KeyEvent.VK_S, 'S', 20);
         driveInCircles();
@@ -84,9 +87,9 @@ public class Scena extends JPanel implements KeyListener, TestForScena {
 
     @Override
     public void driveInCircles() {
-        sendPressKey(KeyEvent.VK_W, 'W', 20);
+        sendPressKey(KeyEvent.VK_W, 'W', 50);
         sendPressKey(KeyEvent.VK_D, 'D', 20);
-        sendPressKey(KeyEvent.VK_W, 'W', 20);
+        sendPressKey(KeyEvent.VK_W, 'W', 50);
         sendPressKey(KeyEvent.VK_D, 'D', 20);
         sendPressKey(KeyEvent.VK_S, 'S', 20);
         sendPressKey(KeyEvent.VK_A, 'A', 20);

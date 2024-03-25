@@ -51,21 +51,23 @@ public class InputConnection extends Thread {
         }
     }
 
-    public TankDto read() {
-        TankDto tankDto = null;
+    public HashMap<Integer,TankDto> read() {
+        HashMap<Integer,TankDto> tankDto = null;
         try {
             Map<Integer, Tank> tankMap = new HashMap<>();
             while (true) {
-                tankDto = (TankDto) objectInputStream.readObject();
+                tankDto = (HashMap<Integer,TankDto>) objectInputStream.readObject();
                 System.out.println(tankDto.toString());
-                Tank tank =new Tank(tankDto.getId(),tankDto.getX(),tankDto.getY());
-                tank.setAlpha(tankDto.getAlpha());
-                tank.setDeltaAlpha(tankDto.getDeltaAlpha());
-                tank.setSpeedAlpha(tankDto.getSpeedAlpha());
-                Tore tore = new Tore(tankDto.getTore().X,tankDto.getTore().Y);
-                tore.setAlpha(tankDto.getTore().alpha);
-                tank.setTore(tore);
-                tankMap.put(tankDto.getId(),tank);
+                for (TankDto dto : tankDto.values()) {
+                    Tank tank =new Tank(dto.getId(),dto.getX(),dto.getY());
+                    tank.setAlpha(dto.getAlpha());
+                    tank.setDeltaAlpha(dto.getDeltaAlpha());
+                    tank.setSpeedAlpha(dto.getSpeedAlpha());
+                    Tore tore = new Tore(dto.getTore().X,dto.getTore().Y);
+                    tore.setAlpha(dto.getTore().alpha);
+                    tank.setTore(tore);
+                    tankMap.put(dto.getId(),tank);
+                }
                 scena.setTanks(tankMap);
             }
         } catch (EOFException e) {
