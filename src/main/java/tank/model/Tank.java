@@ -29,8 +29,7 @@ public class Tank {
     float speedAlpha = 1.5F;
     private Tore tore;
     public Map<String, Charge> chargeMap;
-//    public float alpha = 0.0F;
-//    public static int BG_BORDER = 3;
+    public boolean isFocusable= false;
 
     public Tank(int id, float X, float Y) {
         this.X = X;
@@ -56,7 +55,7 @@ public class Tank {
         g.fillRect((int) X - BG_BORDER, (int) Y - BG_BORDER, (int) TANK_HEIGHT + BG_BORDER, (int) TANK_WIDTH + BG_BORDER);
         g2d.rotate(Math.toRadians(-alpha), (int) (X + TANK_HEIGHT / 2), (int) (Y + TANK_WIDTH / 2));
         g2d.rotate(Math.toRadians(alpha), (int) (X + TANK_HEIGHT / 2), (int) (Y + TANK_WIDTH / 2));
-        if (deltaX == 0.0F && deltaY == 0.0F) {
+        if (!isFocusable) {
             g.drawImage(imageTankStopped, (int) X, (int) Y, (int) TANK_HEIGHT, (int) TANK_WIDTH, null);
         } else {
             g.drawImage(imageTankActive, (int) X, (int) Y, (int) TANK_HEIGHT, (int) TANK_WIDTH, null);

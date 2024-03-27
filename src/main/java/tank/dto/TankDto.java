@@ -13,12 +13,13 @@ public class TankDto implements Serializable {
     float speedAlpha = 2;
     private ToreDto tore;
 
+    private float X = 0;
+
+    private float Y = 0;
+    public boolean isFocusable= false;
     public TankDto(int id) {
         this.id = id;
     }
-
-    private float X = 0;
-    private float Y = 0;
 
     public float getSpeed() {
         return speed;

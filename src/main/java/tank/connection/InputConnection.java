@@ -1,6 +1,7 @@
 package tank.connection;
 
 import tank.dto.TankDto;
+import tank.logic.LogicForConnection;
 import tank.model.Tank;
 import tank.model.Tore;
 import tank.view.Scena;
@@ -17,7 +18,7 @@ public class InputConnection extends Thread {
     private InputStream inputStream;
     private ObjectInputStream objectInputStream;
     private Scena scena;
-
+LogicForConnection logicForConnection=new LogicForConnection();
 
 
     @Override
@@ -58,16 +59,7 @@ public class InputConnection extends Thread {
             while (true) {
                 tankDto = (HashMap<Integer,TankDto>) objectInputStream.readObject();
                 System.out.println(tankDto.toString());
-                for (TankDto dto : tankDto.values()) {
-                    Tank tank =new Tank(dto.getId(),dto.getX(),dto.getY());
-                    tank.setAlpha(dto.getAlpha());
-                    tank.setDeltaAlpha(dto.getDeltaAlpha());
-                    tank.setSpeedAlpha(dto.getSpeedAlpha());
-                    Tore tore = new Tore(dto.getTore().X,dto.getTore().Y);
-                    tore.setAlpha(dto.getTore().alpha);
-                    tank.setTore(tore);
-                    tankMap.put(dto.getId(),tank);
-                }
+                tankMap = logicForConnection.creatAndPutTanks(tankDto, tankMap);
                 scena.setTanks(tankMap);
             }
         } catch (EOFException e) {
@@ -79,6 +71,9 @@ public class InputConnection extends Thread {
         }
         return tankDto;
     }
+
+
+
     public void closeSocket(){
         try {
             socketInput.close();

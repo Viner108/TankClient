@@ -1,19 +1,20 @@
 package tank.view;
 
+import tank.TankApplication;
 import tank.connection.OutputConnection;
 import tank.dto.KeyEventDto;
+import tank.dto.MouseEventDto;
 import tank.model.Tank;
 import tank.server.ServerThread;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class Scena extends JPanel implements KeyListener, TestForScena {
+public class Scena extends JPanel implements KeyListener, TestForScena, MouseListener {
     Map<Integer, Tank> tanks = new HashMap<>();
     public ServerThread tankThread;
     public OutputConnection outputConnection;
@@ -24,6 +25,7 @@ public class Scena extends JPanel implements KeyListener, TestForScena {
         this.requestFocusInWindow();
         grabFocus();
         addKeyListener(this);
+        addMouseListener(this);
         this.setFocusable(true);
         grabFocus();
         setBackground(new Color(34, 139, 34));
@@ -110,5 +112,34 @@ public class Scena extends JPanel implements KeyListener, TestForScena {
 
     @Override
     public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        KeyEventDto keyEventDto = new KeyEventDto();
+        outputConnection.keyPressed(keyEventDto.fromMouseEvent(e));
+    }
+    public void mouseClicked2() {
+        KeyEventDto keyEventDto = new KeyEventDto();
+        KeyEventDto keyEventDto1 = keyEventDto.fromMouseEvent(new MouseEvent(this, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0, 10, 100, 1, false));
+        outputConnection.keyPressed(keyEventDto1);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

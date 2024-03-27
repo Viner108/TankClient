@@ -7,6 +7,7 @@ import tank.dto.KeyEventDto;
 import tank.dto.TankDto;
 import tank.server.ServerMock;
 
+import java.awt.event.MouseEvent;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -77,52 +78,30 @@ public class ConnectionWithServerMockTest {
     @Test
     @DisplayName("Start many clients")
     void testForManyClients() {
+        ExecutorService executorService = Executors.newCachedThreadPool();
         String[] args = new String[1];
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 2; i++) {
             TankApplication.main(args);
+            int finalI = i;
+            executorService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    while (true){
+
+                    }
+//                    TankApplication.list.get(finalI).mouseClicked2();
+//                    for (int i = 0; i < 10; i++) {
+//                        TankApplication.list.get(finalI).driveForward();
+////                        TankApplication.list.get(finalI).driveInCircles();
+//                    }
+                }
+            });
         }
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        executorService.submit(new Runnable() {
-            @Override
-            public void run() {
-                TankApplication.list.get(0).driveForward();
-                for (int i = 0; i < 10; i++) {
-                    TankApplication.list.get(0).driveInCircles();
-                }
-            }
-        });
-        executorService.submit(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < 10; i++) {
-                    TankApplication.list.get(1).driveInCircles();
-                }
-            }
-        });
-        executorService.submit(new Runnable() {
-            @Override
-            public void run() {
-                TankApplication.list.get(2).driveDown();
-                for (int i = 0; i < 10; i++) {
-                    TankApplication.list.get(2).driveInCircles();
-                }
-            }
-        });
-        executorService.submit(new Runnable() {
-            @Override
-            public void run() {
-                TankApplication.list.get(3).driveForwardAndDownAndBack();
-                for (int i = 0; i < 10; i++) {
-                    TankApplication.list.get(3).driveInCircles();
-                }
-            }
-        });
-
         try {
             Thread.sleep(500000);
         } catch (InterruptedException e) {

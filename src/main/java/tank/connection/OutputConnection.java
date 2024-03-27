@@ -1,8 +1,12 @@
 package tank.connection;
 
 import tank.MyObjectOutputStream;
+import tank.TankApplication;
 import tank.dto.KeyEventDto;
+import tank.dto.MouseEventDto;
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -17,14 +21,15 @@ public class OutputConnection extends Thread {
     private static KeyEventDto keyEventDto = new KeyEventDto();
 
 
+
     @Override
     public void run() {
         startConnection();
         while (true) {
-            if (socketOut==null){
+            if (socketOut == null) {
                 startConnection();
             }
-            if (socketOut!= null&&!socketOut.isClosed()) {
+            if (socketOut != null && !socketOut.isClosed()) {
                 keyPressed(keyEventDto);
             }
         }
@@ -73,7 +78,10 @@ public class OutputConnection extends Thread {
             }
         }
     }
-    public void closeSocket(){
+
+
+
+    public void closeSocket() {
         try {
             socketOut.close();
         } catch (IOException e) {
@@ -85,7 +93,7 @@ public class OutputConnection extends Thread {
         return PORT;
     }
 
-    public  void setPORT(int PORT) {
+    public void setPORT(int PORT) {
         this.PORT = PORT;
     }
 }

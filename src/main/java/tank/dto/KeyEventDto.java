@@ -1,17 +1,42 @@
 package tank.dto;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
 public class KeyEventDto implements Serializable {
     private static final long serialVersionUID = 8038539938717817116L;
     boolean press=false;
     int keyCode;
+     int x=0;
+     int y=0;
     public static KeyEventDto fromKeyEvent(KeyEvent e, boolean press){
         KeyEventDto dto = new KeyEventDto();
         dto.setPress(press);
         dto.setKeyCode(e.getKeyCode());
         return dto;
+    }
+    public KeyEventDto fromMouseEvent(MouseEvent e) {
+        KeyEventDto dto = new KeyEventDto();
+        dto.setX(e.getX());
+        dto.setY(e.getY());
+        return dto;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public int getKeyCode () {
