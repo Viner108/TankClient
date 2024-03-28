@@ -16,12 +16,6 @@ public class KeyEventDto implements Serializable {
         dto.setKeyCode(e.getKeyCode());
         return dto;
     }
-    public KeyEventDto fromMouseEvent(MouseEvent e) {
-        KeyEventDto dto = new KeyEventDto();
-        dto.setX(e.getX());
-        dto.setY(e.getY());
-        return dto;
-    }
 
     public int getX() {
         return x;

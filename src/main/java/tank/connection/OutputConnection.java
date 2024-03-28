@@ -80,6 +80,18 @@ public class OutputConnection extends Thread {
     }
 
 
+    public void mouseClicked(MouseEventDto e) {
+        if (objectOutputStream != null) {
+            try {
+                synchronized (objectOutputStream) {
+                    objectOutputStream.writeObject(e);
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
 
     public void closeSocket() {
         try {

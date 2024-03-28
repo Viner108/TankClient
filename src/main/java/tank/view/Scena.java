@@ -111,16 +111,14 @@ public class Scena extends JPanel implements KeyListener, MouseListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        outputConnection.keyPressed(KeyEventDto.fromKeyEvent(e, true));
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        KeyEventDto keyEventDto = new KeyEventDto();
-        outputConnection.keyPressed(keyEventDto.fromMouseEvent(e));
+        outputConnection.mouseClicked(MouseEventDto.fromMouseEvent(e));
     }
     public void mouseClicked2(int x,int y) {
-        mouseClicked(new MouseEvent(this, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0, x, y, 1, false));
+        outputConnection.mouseClicked(MouseEventDto.fromMouseEvent(new MouseEvent(this, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0, x, y, 1, false)));
     }
 
     @Override

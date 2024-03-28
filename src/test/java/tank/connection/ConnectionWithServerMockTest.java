@@ -84,16 +84,17 @@ public class ConnectionWithServerMockTest {
             TankApplication.main(args);
 
         }
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         for (int i = 0; i < 2; i++) {
             int finalI = i;
             executorService.submit(new Runnable() {
                 @Override
                 public void run() {
                     TankApplication.list.get(finalI).mouseClicked2(10, 10);
-                    for (int i = 0; i < 2; i++) {
-                        TankApplication.list.get(finalI).driveForward();
-                    }
-                    TankApplication.list.get(finalI).mouseClicked2(10, 100);
                     for (int i = 0; i < 10; i++) {
                         TankApplication.list.get(finalI).driveForward();
                     }
