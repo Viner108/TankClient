@@ -14,19 +14,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class Scena extends JPanel implements KeyListener, TestForScena, MouseListener {
+public class Scena extends JPanel implements KeyListener, MouseListener {
     Map<Integer, Tank> tanks = new HashMap<>();
     public ServerThread tankThread;
     public OutputConnection outputConnection;
 
     public Scena() {
         super();
+        addMouseListener(this);
+        addKeyListener(this);
         this.setFocusable(true);
         this.requestFocusInWindow();
-        grabFocus();
-        addKeyListener(this);
-        addMouseListener(this);
-        this.setFocusable(true);
+        requestFocus();
         grabFocus();
         setBackground(new Color(34, 139, 34));
     }
@@ -63,13 +62,13 @@ public class Scena extends JPanel implements KeyListener, TestForScena, MouseLis
         }
     }
 
-    @Override
+
     public void driveForward() {
         sendPressKey(KeyEvent.VK_W, 'W', 50);
         driveInCircles();
     }
 
-    @Override
+
     public void driveDown() {
         sendPressKey(KeyEvent.VK_W, 'W', 50);
         sendPressKey(KeyEvent.VK_D, 'D', 20);
@@ -77,7 +76,7 @@ public class Scena extends JPanel implements KeyListener, TestForScena, MouseLis
         driveInCircles();
     }
 
-    @Override
+
     public void driveForwardAndDownAndBack() {
         sendPressKey(KeyEvent.VK_W, 'W', 50);
         sendPressKey(KeyEvent.VK_D, 'D', 20);
@@ -87,7 +86,7 @@ public class Scena extends JPanel implements KeyListener, TestForScena, MouseLis
         driveInCircles();
     }
 
-    @Override
+
     public void driveInCircles() {
         sendPressKey(KeyEvent.VK_W, 'W', 50);
         sendPressKey(KeyEvent.VK_D, 'D', 20);
@@ -112,6 +111,7 @@ public class Scena extends JPanel implements KeyListener, TestForScena, MouseLis
 
     @Override
     public void keyTyped(KeyEvent e) {
+        outputConnection.keyPressed(KeyEventDto.fromKeyEvent(e, true));
     }
 
     @Override
@@ -119,10 +119,8 @@ public class Scena extends JPanel implements KeyListener, TestForScena, MouseLis
         KeyEventDto keyEventDto = new KeyEventDto();
         outputConnection.keyPressed(keyEventDto.fromMouseEvent(e));
     }
-    public void mouseClicked2() {
-        KeyEventDto keyEventDto = new KeyEventDto();
-        KeyEventDto keyEventDto1 = keyEventDto.fromMouseEvent(new MouseEvent(this, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0, 10, 100, 1, false));
-        outputConnection.keyPressed(keyEventDto1);
+    public void mouseClicked2(int x,int y) {
+        mouseClicked(new MouseEvent(this, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0, x, y, 1, false));
     }
 
     @Override

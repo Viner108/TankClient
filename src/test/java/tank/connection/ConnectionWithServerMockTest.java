@@ -82,28 +82,26 @@ public class ConnectionWithServerMockTest {
         String[] args = new String[1];
         for (int i = 0; i < 2; i++) {
             TankApplication.main(args);
+
+        }
+        for (int i = 0; i < 2; i++) {
             int finalI = i;
             executorService.submit(new Runnable() {
                 @Override
                 public void run() {
-                    while (true){
-
+                    TankApplication.list.get(finalI).mouseClicked2(10, 10);
+                    for (int i = 0; i < 2; i++) {
+                        TankApplication.list.get(finalI).driveForward();
                     }
-//                    TankApplication.list.get(finalI).mouseClicked2();
-//                    for (int i = 0; i < 10; i++) {
-//                        TankApplication.list.get(finalI).driveForward();
-////                        TankApplication.list.get(finalI).driveInCircles();
-//                    }
+                    TankApplication.list.get(finalI).mouseClicked2(10, 100);
+                    for (int i = 0; i < 10; i++) {
+                        TankApplication.list.get(finalI).driveForward();
+                    }
                 }
             });
         }
         try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            Thread.sleep(500000);
+            Thread.sleep(50000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
